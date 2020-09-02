@@ -5,6 +5,7 @@
  */
 package com.demo.surveyorservice.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "surveyor")
-public class Surveyor {
+public class Surveyor implements Serializable {
 
     private Long id;
     private String name;
