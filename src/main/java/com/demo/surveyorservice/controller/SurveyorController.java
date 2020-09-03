@@ -5,12 +5,19 @@
  */
 package com.demo.surveyorservice.controller;
 
+import com.demo.surveyorservice.dto.ApiResponse;
+import com.demo.surveyorservice.dto.ReqestCreateSurveyor;
+import com.demo.surveyorservice.enums.StatusSurveyor;
 import com.demo.surveyorservice.model.Surveyor;
-import com.demo.surveyorservice.service.SurveyorService;
+import com.demo.surveyorservice.service.SurveyorServiceImpl;
+import com.demo.surveyorservice.utility.MyUtil;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -24,11 +31,18 @@ import org.springframework.web.client.RestTemplate;
 public class SurveyorController {
 
     @Autowired
-    private SurveyorService surveyorService;
-
-    @GetMapping("/{surveyorId}")
-    @ApiOperation(value = "Find Surveyor by Id", response = Surveyor.class, notes = "Provide an id to look up from data surveyor")
-    public Surveyor getOrders(@PathVariable("surveyorId") Long surveyorId) throws Exception {
-        return surveyorService.findById(surveyorId);
+    private SurveyorServiceImpl surveyorService;
+    
+    @PostMapping("/create-surveyor")
+    @ApiOperation(value = "Create a new surveyor", response = ApiResponse.class)
+    public ApiResponse createSurveyor(@RequestBody ReqestCreateSurveyor requestData, HttpServletRequest http) throws Exception {
+        System.out.println("Request From " + http.getRemoteAddr() + " on " + http.getServletPath());
+        System.out.println("Data -> " + requestData.toString());
+        
+        Surveyor surveyor = new Surveyor(requestData.getName(), requestData.getMsisdn(), requestData.getAddress(), requestData.getEmail(), StatusSurveyor.OTP_VERIFICATION);
+        surveyor = surveyorService.createSurveyor(surveyor);
+        return MyUtil.buildResponseWrapper("Surveyor created successfull", surveyor);
     }
+    
+    
 }
