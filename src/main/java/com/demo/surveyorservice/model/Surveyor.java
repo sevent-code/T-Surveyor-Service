@@ -69,7 +69,7 @@ public class Surveyor implements Serializable {
         return name;
     }
 
-    @Column(name = "msisdn", length = 20)
+    @Column(name = "msisdn", unique = true, length = 20)
     public String getMsisdn() {
         return msisdn;
     }
@@ -80,7 +80,7 @@ public class Surveyor implements Serializable {
         return address;
     }
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", unique = true, length = 100)
     public String getEmail() {
         return email;
     }
