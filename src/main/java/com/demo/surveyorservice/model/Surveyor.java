@@ -32,6 +32,7 @@ public class Surveyor implements Serializable {
     private Long id;
     private String name;
     private String msisdn;
+    private String password;
     private String address;
     private String email;
     private StatusSurveyor statusSurveyor;
@@ -40,17 +41,26 @@ public class Surveyor implements Serializable {
 
     public Surveyor() {
     }
-    
+
     public Surveyor(String name, String msisdn, String address, String email) {
         this.name = name;
         this.msisdn = msisdn;
         this.address = address;
         this.email = email;
     }
-
+    
     public Surveyor(String name, String msisdn, String address, String email, StatusSurveyor statusSurveyor) {
         this.name = name;
         this.msisdn = msisdn;
+        this.address = address;
+        this.email = email;
+        this.statusSurveyor = statusSurveyor;
+    }
+
+    public Surveyor(String name, String msisdn, String password, String address, String email, StatusSurveyor statusSurveyor) {
+        this.name = name;
+        this.msisdn = msisdn;
+        this.password = password;
         this.address = address;
         this.email = email;
         this.statusSurveyor = statusSurveyor;
@@ -72,6 +82,11 @@ public class Surveyor implements Serializable {
     @Column(name = "msisdn", unique = true, length = 20)
     public String getMsisdn() {
         return msisdn;
+    }
+
+    @Column(name = "password", length = 20)
+    public String getPassword() {
+        return password;
     }
 
     @Column(name = "address")
@@ -121,6 +136,10 @@ public class Surveyor implements Serializable {
 
     public void setMsisdn(String msisdn) {
         this.msisdn = msisdn;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setAddress(String address) {
