@@ -40,8 +40,13 @@ public class SurveyorServiceImpl implements SurveyorService {
     }
     
     @Override
+    public Surveyor doLogin(String msisdn, String password) throws Exception {
+        return surveyorRepository.findByMsisdnAndPassword(msisdn, password).orElseThrow(() -> new MyResourceNotFoundException("Mobile number / password is incorrect"));
+    }
+    
+    @Override
     public Surveyor findById(Long id) {
-        return surveyorRepository.findById(id).orElseThrow(() -> new MyResourceNotFoundException(id));
+        return surveyorRepository.findById(id).orElseThrow(() -> new MyResourceNotFoundException("Cannot find surveyor with id " + id));
     }
 
     @Override
@@ -60,4 +65,6 @@ public class SurveyorServiceImpl implements SurveyorService {
             return surveyorRepository.save(surveyor);
         }).orElseThrow(() -> new MyResourceException("Error when update status surveyor with id " + id));
     }
+
+    
 }

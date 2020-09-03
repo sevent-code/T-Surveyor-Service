@@ -5,9 +5,9 @@
  */
 package com.demo.surveyorservice.service;
 
+
 import com.demo.surveyorservice.model.Surveyor;
-import java.util.List;
-import org.springframework.http.ResponseEntity;
+
 
 /**
  *
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 public interface SurveyorService {
     Surveyor createSurveyor(Surveyor surveyor) throws Exception;
     void deleteSurveyor(Long id) throws Exception;
+    Surveyor doLogin(String msisdn, String password) throws Exception;
     Surveyor findById(Long id) throws Exception;
     Surveyor updateSurveyor(Long id, Surveyor requestSurveyor) throws Exception;
     Surveyor validateOtpRegistration(Long id, String otp) throws Exception;
