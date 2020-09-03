@@ -32,4 +32,17 @@ public class ApiExceptionHandler {
         
         return new ResponseEntity<>(exception, badRequest);
     };
+    
+    @ExceptionHandler(value = {MyResourceException.class})
+    public ResponseEntity<Object> handleApiMyResourceException(MyResourceException e) {
+        HttpStatus badRequest = HttpStatus.INTERNAL_SERVER_ERROR;
+        ApiException exception = new ApiException(
+                LocalDateTime.now(),
+                badRequest,
+                e.getMessage(),
+                e
+        );
+        
+        return new ResponseEntity<>(exception, badRequest);
+    };
 }
