@@ -26,8 +26,7 @@ public class ApiExceptionHandler {
         ApiException exception = new ApiException(
                 LocalDateTime.now(),
                 internalError,
-                e.getMessage(),
-                e
+                e.getMessage()
         );
         
         return new ResponseEntity<>(exception, internalError);
@@ -39,8 +38,7 @@ public class ApiExceptionHandler {
         ApiException exception = new ApiException(
                 LocalDateTime.now(),
                 badRequest,
-                e.getMessage(),
-                e
+                e.getMessage()
         );
         
         return new ResponseEntity<>(exception, badRequest);
@@ -52,8 +50,7 @@ public class ApiExceptionHandler {
         ApiException exception = new ApiException(
                 LocalDateTime.now(),
                 badRequest,
-                e.getMessage(),
-                e
+                e.getMessage()
         );
         
         return new ResponseEntity<>(exception, badRequest);
