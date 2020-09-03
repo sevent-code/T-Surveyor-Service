@@ -5,23 +5,16 @@
  */
 package com.demo.surveyorservice.service;
 
-import com.demo.surveyorservice.exception.MyResourceNotFoundException;
 import com.demo.surveyorservice.model.Surveyor;
-import com.demo.surveyorservice.repository.SurveyorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
  * @author Steven Raylianto K.
  */
-@Service
-public class SurveyorService {
-
-    @Autowired
-    private SurveyorRepository surveyorRepository;
-
-    public Surveyor findById(Long id) {
-        return surveyorRepository.findById(id).orElseThrow(() -> new MyResourceNotFoundException(id));
-    }
+public interface SurveyorService {
+    Surveyor createSurveyor(Surveyor surveyor);
+    Surveyor updateSurveyor(Long id, Surveyor requestSurveyor);
+    ResponseEntity<?> deleteSurveyor(Long id);
 }
