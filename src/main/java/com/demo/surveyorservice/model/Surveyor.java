@@ -5,14 +5,21 @@
  */
 package com.demo.surveyorservice.model;
 
+import com.demo.surveyorservice.enums.StatusSurveyor;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -26,8 +33,27 @@ public class Surveyor implements Serializable {
     private String name;
     private String msisdn;
     private String address;
+    private String email;
+    private StatusSurveyor statusSurveyor;
+    private LocalDateTime createDateTime;
+    private LocalDateTime modifyDateTime;
 
     public Surveyor() {
+    }
+    
+    public Surveyor(String name, String msisdn, String address, String email) {
+        this.name = name;
+        this.msisdn = msisdn;
+        this.address = address;
+        this.email = email;
+    }
+
+    public Surveyor(String name, String msisdn, String address, String email, StatusSurveyor statusSurveyor) {
+        this.name = name;
+        this.msisdn = msisdn;
+        this.address = address;
+        this.email = email;
+        this.statusSurveyor = statusSurveyor;
     }
 
     @Id
@@ -38,19 +64,51 @@ public class Surveyor implements Serializable {
         return id;
     }
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100)
     public String getName() {
         return name;
     }
 
-    @Column(name = "msisdn")
+    @Column(name = "msisdn", length = 20)
     public String getMsisdn() {
         return msisdn;
     }
 
     @Column(name = "address")
+    @Type(type = "text")
     public String getAddress() {
         return address;
+    }
+
+    @Column(name = "email", length = 100)
+    public String getEmail() {
+        return email;
+    }
+
+    @Column(name = "status_surveyor")
+    @Enumerated(EnumType.ORDINAL)
+    public StatusSurveyor getStatusSurveyor() {
+        return statusSurveyor;
+    }
+
+    @Column(name = "create_date_time", columnDefinition = "TIMESTAMP")
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    @Column(name = "modify_date_time", columnDefinition = "TIMESTAMP")
+    public LocalDateTime getModifyDateTime() {
+        return modifyDateTime;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        this.createDateTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.modifyDateTime = LocalDateTime.now();
     }
 
     public void setId(Long id) {
@@ -67,6 +125,22 @@ public class Surveyor implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setStatusSurveyor(StatusSurveyor statusSurveyor) {
+        this.statusSurveyor = statusSurveyor;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public void setModifyDateTime(LocalDateTime modifyDateTime) {
+        this.modifyDateTime = modifyDateTime;
     }
 
     @Override
