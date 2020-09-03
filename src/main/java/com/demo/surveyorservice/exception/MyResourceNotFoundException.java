@@ -11,7 +11,7 @@ package com.demo.surveyorservice.exception;
  */
 public class MyResourceNotFoundException extends RuntimeException {
 
-    public MyResourceNotFoundException(Long id) {
-        super("Surveyor with id " + id + " does not exist");
+    public MyResourceNotFoundException(String error) {
+        super(error);
     }
 }
