@@ -20,8 +20,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ApiExceptionHandler {
     
-    @ExceptionHandler(value = {MyResourceNotFoundException.class})
-    public ResponseEntity<Object> handleApiRequestExcption(MyResourceNotFoundException e) {
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<Object> handleApiRequestExcption(Exception e) {
+        HttpStatus internalError = HttpStatus.INTERNAL_SERVER_ERROR;
+        ApiException exception = new ApiException(
+                LocalDateTime.now(),
+                internalError,
+                e.getMessage(),
+                e
+        );
+        
+        return new ResponseEntity<>(exception, internalError);
+    };
+    
+    @ExceptionHandler(value = {MyResourceException.class})
+    public ResponseEntity<Object> handleApiRequestExcption(MyResourceException e) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ApiException exception = new ApiException(
                 LocalDateTime.now(),
